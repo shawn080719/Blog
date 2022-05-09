@@ -251,7 +251,7 @@
 
       
           <h1 id="FPGA-Routing-Architecture-Between-Tiles"><a href="#FPGA-Routing-Architecture-Between-Tiles" class="headerlink" title="FPGA Routing Architecture Between Tiles"></a>FPGA Routing Architecture Between Tiles</h1><h2 id="基本结构-—-Island"><a href="#基本结构-—-Island" class="headerlink" title="基本结构 — $Island$"></a>基本结构 — $Island$</h2><h3 id="Switch-Block"><a href="#Switch-Block" class="headerlink" title="$Switch Block$"></a>$Switch Block$</h3><p>目前通用的几种交换块结构为：$Universal, Disjoint, Wil$</p>
-<p><img src="SwitchBlock.PNG" alt="SwitchBlock"></p>
+<p><img src="/images/SwitchBlock.PNG" alt="SwitchBlock"></p>
 <p>$Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线轨道和晶体管来实现。</p>
 <h3 id="描述参数"><a href="#描述参数" class="headerlink" title="描述参数"></a>描述参数</h3><ul>
 <li>$k$      $LUT$输入    $3 to 7 inputs$</li>
