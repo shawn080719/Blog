@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="$Verilog$的分层事件队列仿真器首先按照仿真时间对事件进行排序，然后再在当前仿真时间里按照事件的优先级顺序进行排序。 活跃事件是优先级最高的时间，在活跃事件之间，它们的执行顺序是随机的。 两个缩写：$RHS(right-hand-side)$和$LHS(left-hand-side)$。 前者指等式右边的表达式或者变量$(RHS expression or RHS variable)$，后者">
+  <meta name="description" content="FPGA Routing Architecture Between Tiles基本结构 – $Island$$Switch Block$目前通用的几种交换块结构为：$Universal, Disjoint, Wil$ ![SwitchBlock](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Switc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Shawn&#39;s Blog">
-<meta property="og:url" content="http://example.com/2022/05/09/VerilogVerilog%E7%9A%84%E5%88%86%E5%B1%82%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97/index.html">
+<meta property="og:title" content="Tiles">
+<meta property="og:url" content="http://example.com/2022/05/09/Tiles/index.html">
 <meta property="og:site_name" content="Shawn&#39;s Blog">
-<meta property="og:description" content="$Verilog$的分层事件队列仿真器首先按照仿真时间对事件进行排序，然后再在当前仿真时间里按照事件的优先级顺序进行排序。 活跃事件是优先级最高的时间，在活跃事件之间，它们的执行顺序是随机的。 两个缩写：$RHS(right-hand-side)$和$LHS(left-hand-side)$。 前者指等式右边的表达式或者变量$(RHS expression or RHS variable)$，后者">
+<meta property="og:description" content="FPGA Routing Architecture Between Tiles基本结构 – $Island$$Switch Block$目前通用的几种交换块结构为：$Universal, Disjoint, Wil$ ![SwitchBlock](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Switc">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-09T12:44:42.511Z">
-<meta property="article:modified_time" content="2022-05-09T12:39:39.272Z">
+<meta property="article:published_time" content="2022-05-09T12:59:14.000Z">
+<meta property="article:modified_time" content="2022-05-09T12:59:23.257Z">
 <meta property="article:author" content="Shawn">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/05/09/VerilogVerilog%E7%9A%84%E5%88%86%E5%B1%82%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97/">
+<link rel="canonical" href="http://example.com/2022/05/09/Tiles/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title> | Shawn's Blog</title>
+  <title>Tiles | Shawn's Blog</title>
   
 
 
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/VerilogVerilog%E7%9A%84%E5%88%86%E5%B1%82%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/Tiles/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/test1.png">
@@ -213,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          Tiles
         </h1>
 
         <div class="post-meta">
@@ -224,7 +224,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-05-09 20:44:42 / 修改时间：20:39:39" itemprop="dateCreated datePublished" datetime="2022-05-09T20:44:42+08:00">2022-05-09</time>
+              <time title="创建时间：2022-05-09 20:59:14 / 修改时间：20:59:23" itemprop="dateCreated datePublished" datetime="2022-05-09T20:59:14+08:00">2022-05-09</time>
             </span>
 
           <br>
@@ -233,14 +233,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>673</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -252,21 +252,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Verilog-的分层事件队列"><a href="#Verilog-的分层事件队列" class="headerlink" title="$Verilog$的分层事件队列"></a>$Verilog$的分层事件队列</h1><p>仿真器首先按照仿真时间对事件进行排序，然后再在当前仿真时间里按照事件的优先级顺序进行排序。</p>
-<p>活跃事件是优先级最高的时间，在活跃事件之间，它们的执行顺序是随机的。</p>
-<p>两个缩写：$RHS(right-hand-side)$和$LHS(left-hand-side)$。</p>
-<p>前者指等式右边的表达式或者变量$(RHS expression or RHS variable)$，后者指等式左边的表达式或者变量$(LHS expression or LHS variable)$。</p>
-<p>由上表可知，阻塞赋值属于活跃事件，会立刻执行，这就是阻塞赋值<em>计算完毕，立即更新</em>的原因。此外，由于在分层事件队列中，只有将活跃事件中排在前面的事件调出，并执行完毕后，才能够执行下面的事件，这就可以解释阻塞赋值的第二个特点。</p>
-<p>同样由上表可知，非阻塞赋值的$RHS$计算属于活跃事件，而非阻塞赋值的更新事件排在非活跃事件之后，因此只有仿真队列中所有的活跃事件和非活跃事件都执行完毕后，才轮到非阻塞赋值更新事件，这就是非阻塞赋值必须分两拍完成的原因。</p>
-<p><strong>阻塞赋值特点：</strong></p>
-<ul>
-<li><p>$RHS$的表达式计算和$LHS$的赋值更新，这两个动作之间不能插入其他动作，即所谓计算完毕，立即更新。</p>
+        <h1 id="FPGA-Routing-Architecture-Between-Tiles"><a href="#FPGA-Routing-Architecture-Between-Tiles" class="headerlink" title="FPGA Routing Architecture Between Tiles"></a>FPGA Routing Architecture Between Tiles</h1><h2 id="基本结构-–-Island"><a href="#基本结构-–-Island" class="headerlink" title="基本结构 – $Island$"></a>基本结构 – $Island$</h2><h3 id="Switch-Block"><a href="#Switch-Block" class="headerlink" title="$Switch Block$"></a>$Switch Block$</h3><p>目前通用的几种交换块结构为：$Universal, Disjoint, Wil$</p>
+<p>![SwitchBlock](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\SwitchBlock.PNG)</p>
+<p>$Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线轨道和晶体管来实现。</p>
+<h3 id="描述参数"><a href="#描述参数" class="headerlink" title="描述参数"></a>描述参数</h3><ul>
+<li><p>$k$      $LUT$输入    $3 to 7 inputs$</p>
 </li>
-<li><p>所谓阻塞赋值就是在一个begin…end块中的多个阻塞赋值语句，只有上一句完全执行完毕后，才会执行下一语句。</p>
+<li><p>$N$      $Cluster$ 中 $LUT$ 数量    $1 to 10 LUTs$</p>
+</li>
+<li><p>$I$      $CLB$输入    $4 to 40 inputs$</p>
+</li>
+<li><p>$W $	通道宽度，表示每个通道中的track数    $10 to 60 tracks$</p>
+</li>
+<li><p>$F_s$    交换块灵活度$(Flexibility of Swtich Block)$    表示发生在开关块中轨道上的可编程连接的数量</p>
+</li>
+<li><p>$F_{c_{in}}$    连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输入可连接的轨道数与总轨道数之比    $0.1 to 1.0$</p>
+</li>
+<li><p>$F_{c_{out}} $   连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输出可连接的轨道数与总轨道数之比    $0.1 to 1.0$</p>
 </li>
 </ul>
-<p><strong>非阻塞赋值程序的执行：</strong></p>
-<p>非阻塞赋值，$RHS$的计算表达式和$LHS$的赋值更新分两个节拍执行。首先，应该是$RHS$表达式计算，得到新值后并不立即赋值，而是放在事件队列中等待，直到当前仿真时刻的后期才执行。</p>
+<h3 id="物理层部署"><a href="#物理层部署" class="headerlink" title="物理层部署"></a>物理层部署</h3><p>![physical layer](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\physical layer.PNG)</p>
+<p>对于$F_s &#x3D; 3$的交换块，其任意输入都有三个潜在的连接对象；同理，任意输出都有三个潜在的输入连接对象。因此如左图所示的交换快Top结构可具体为右图中的多路选择器，其晶体管级实现根据具体情况决定。</p>
+<h2 id="TOP-实现"><a href="#TOP-实现" class="headerlink" title="$TOP$实现"></a>$TOP$实现</h2><h3 id="Single-Drive-Routing"><a href="#Single-Drive-Routing" class="headerlink" title="$Single Drive Routing$"></a><a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~jayar/pubs/luu/luufpga09.pdf">$Single Drive Routing$</a></h3><p>![1](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\1.PNG)</p>
+<p>在$Single Drive Routing$结构中，可编程性是通过在驱动器的输入上使用多路复用器来实现的，每个布线轨道都只有一个物理驱动器，这种对单个驱动器的限制意味着逻辑块输出只能连接到其驱动器与逻辑块相邻的布线轨道，以避免与相邻逻辑集群的布线过长。典型的单驱动器布线架构将驱动器放置在布线的一端而不是中间，每根线只能在特定方向发送信号。</p>
+<p>目前，[$Altera$](<a target="_blank" rel="noopener" href="http://www.altera.com/literature/hb/">http://www.altera.com/literature/hb/</a> stratix-iv&#x2F;stratix4_handbook.pdf)及[$Xilinx$](<a target="_blank" rel="noopener" href="http://www.altera.com/literature/hb/">http://www.altera.com/literature/hb/</a> stratix-iv&#x2F;stratix4_handbook.pdf)最近推出的所有$FPGA$设备都特定使用单驱动器路由架构。</p>
+<h3 id="基于定长路由线-tile-的-fabric-生成"><a href="#基于定长路由线-tile-的-fabric-生成" class="headerlink" title="基于定长路由线$tile$的$fabric$生成"></a><a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~vaughn/papers/fpga2000.pdf">基于定长路由线$tile$的$fabric$生成</a></h3><p>通常构建$fabric$需要根据每个$tile$的具体连接情况单独指定其开关块和连接块。如果只是简单的对每个$tile$进行路由通路复制，则会出现如下图所示的问题—-部分$CLB$输出引脚无法通过路由轨道驱动部分其他$CLB$的输入引脚：</p>
+<p>![ReplicationgChannel](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\ReplicationgChannel.PNG)</p>
+<p>造成该问题的原因，是在$Routing$中采用的$Segment$无法在中端加入开关—-否则实际布线时就会编程两根较短导线，而单纯的重复相同$tile$的布局无法针对该路由结构的情况进行针对性调整。</p>
+<p>可通过规律性调整路由线起点解决该问题。</p>
+<p>![Adjust_before](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Adjust_before.PNG)</p>
+<p>如上图所示的$fabric$结构，将每个tile对应的水平路由轨道从下到上分别命名为$Channel0-2$，垂直路由轨道从左到右分别命名为$Channel0-2$；首先考虑水平$Channel$，对于轨道0中$track0$线段的左端与满足如下条件的逻辑块对齐：<br>$$<br>(i + 2) module 3 &#x3D; 0<br>$$<br>其中$ i $是逻辑块的水平(x)坐标。则对于轨道1中$track0$线段的左端与满足如下条件的逻辑块对齐：<br>$$<br>(i + 3) module3 &#x3D; 0<br>$$<br>对于其他编号的$track$的起点则要求顺序后移—-随$Channel$编号增加方向；</p>
+<p>垂直方向通道判断$Segment$起点方法公式与水平通道相同(编号规则不改变)，且执行类似的起点后移—-通道$i+1$中每个$Segment$起点相对于通道i中的起点向后移动一个$CLB$。</p>
+<p>![Adjust_after](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Adjust_after.PNG)</p>
+<p>再更改其$Top$结构，使其每个$Tile$路由结构相同，便于复制生成目标大小的$fabric$。</p>
+<h2 id="Detailed-Routing-Architecture"><a href="#Detailed-Routing-Architecture" class="headerlink" title="$Detailed Routing Architecture$"></a><a target="_blank" rel="noopener" href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1067.891&rep=rep1&type=pdf">$Detailed Routing Architecture$</a></h2><p>影响FPGA整体性能的一个主要因素是路由开关的选择，路由开关可由输入复用传输晶体管、缓冲器和输出解复用晶体管的任意组合进行建模。其组合中在电气上可行的5中结构如下表所示：</p>
+<p>![DirectDriveMux](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\DirectDriveMux.PNG)</p>
+<ul>
+<li>缓冲器</li>
+<li>缓冲器和输出传输晶体管</li>
+<li>传输晶体管</li>
+<li>直接驱动多路复用器</li>
+<li>带缓冲器的传输晶体管多路复用器和输出多路复用器</li>
+</ul>
+<p>缓冲器没有任何执行可编程路由的能力，但可能部署在架构中的不同位置以重新为信号供电。</p>
+<p>在本论文中，尝试使用不同线长占比的$Routing$结构对同一基准电路进行布线，并检测其消耗资源情况，如下图显示对包含$50%Segment$长度4和$50%Segment$长度16，以及$50%Segment$长度4和$50%Segment$长度8两种布线结构使用直接驱动$(Direct Routing)$的效果。其基本架构在两种布线结构中都使用了$50%$的传输晶体管和$50%$的缓冲开关。</p>
+<p>![fraction direct routing](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\fraction direct routing.PNG)</p>
+<center>Average critical path delay for varying fraction of direct-drive routing wires</center>
+
+<p>在实验中，$fabric$路由面积随着直接驱动开关的使用而单调减小。</p>
+<p>![Channel Width Required for varying fraction of DDW](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Channel Width Required for varying fraction of DDW.PNG)</p>
+<center>Channel Width required for varing fraction of direct-drive wires</center>
+
+<p>$4&#x2F;8$架构所需的通道宽度大致恒定，而由于单个驱动点对$Segement$为16的导线形成了更严格的布线约束，因此$4&#x2F;16$架构对应的通道宽度有所增加。</p>
+<p>![Total Routing Area](D:\Project\Blog\MarkDown\Photo\FPGA Routing Architecture Between Tiles\Total Routing Area.PNG)</p>
+<center>Total routing area required for varying fraction of direct-drive wires</center>
+
+<p>尽管$4&#x2F;8$结构导致通道宽度增加，但总布线面积回随着布线多路复用器输入上的小晶体管替换宽布线晶体管而减少。因此如上图所示，在两种现场组合中的任何一种中，$100%$直接驱动多路复用器都会形成速度最快和面积最小的$fabric$。</p>
 
     </div>
 
@@ -282,13 +323,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2022/05/09/Xilinx%E7%9A%84RAM%E4%BD%BF%E7%94%A8/" rel="prev" title="Xilinx的RAM使用">
+      <i class="fa fa-chevron-left"></i> Xilinx的RAM使用
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/09/Vivado%20%E7%9A%84%20Debug%20%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -347,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog-%E7%9A%84%E5%88%86%E5%B1%82%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">$Verilog$的分层事件队列</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FPGA-Routing-Architecture-Between-Tiles"><span class="nav-number">1.</span> <span class="nav-text">FPGA Routing Architecture Between Tiles</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84-%E2%80%93-Island"><span class="nav-number">1.1.</span> <span class="nav-text">基本结构 – $Island$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Switch-Block"><span class="nav-number">1.1.1.</span> <span class="nav-text">$Switch Block$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">描述参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E9%83%A8%E7%BD%B2"><span class="nav-number">1.1.3.</span> <span class="nav-text">物理层部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOP-%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">$TOP$实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Drive-Routing"><span class="nav-number">1.2.1.</span> <span class="nav-text">$Single Drive Routing$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AE%9A%E9%95%BF%E8%B7%AF%E7%94%B1%E7%BA%BF-tile-%E7%9A%84-fabric-%E7%94%9F%E6%88%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">基于定长路由线$tile$的$fabric$生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detailed-Routing-Architecture"><span class="nav-number">1.3.</span> <span class="nav-text">$Detailed Routing Architecture$</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
