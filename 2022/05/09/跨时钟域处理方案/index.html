@@ -28,14 +28,14 @@
 <meta property="og:description" content="Clock Domain Crossing Solution 本文参考文章A 异步时序定义异步时序设计指的是在设计中有两个或以上的时钟， 且时钟之间是同频不同相或不同频率的关系。而异步时序设计的关键就是把数据或控制信号正确地进行跨时钟域传输。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/3.png">
-<meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/跨时钟域处理方案/image-20220510233046580.png">
+<meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/image-20220510233046580.png">
 <meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/4.png">
 <meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/5.png">
 <meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/6.png">
 <meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/7.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/跨时钟域处理方案/image-20220510000511421.png">
+<meta property="og:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/image-20220510000511421.png">
 <meta property="article:published_time" content="2022-05-09T12:55:15.000Z">
-<meta property="article:modified_time" content="2022-05-10T15:37:54.865Z">
+<meta property="article:modified_time" content="2022-05-11T15:06:11.704Z">
 <meta property="article:author" content="Shawn">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/3.png">
@@ -238,7 +238,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-10 23:37:54" itemprop="dateModified" datetime="2022-05-10T23:37:54+08:00">2022-05-10</time>
+                <time title="修改时间：2022-05-11 23:06:11" itemprop="dateModified" datetime="2022-05-11T23:06:11+08:00">2022-05-11</time>
               </span>
 
           <br>
@@ -270,50 +270,50 @@
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lyc-seu/p/12441366.html">本文参考文章A</a></p>
 <h1 id="异步时序定义"><a href="#异步时序定义" class="headerlink" title="异步时序定义"></a>异步时序定义</h1><p>异步时序设计指的是在设计中有两个或以上的时钟， 且时钟之间是同频不同相或不同频率的关系。而异步时序设计的关键就是把数据或控制信号正确地进行跨时钟域传输。</p>
 <span id="more"></span>
-<h1 id="亚稳态"><a href="#亚稳态" class="headerlink" title="亚稳态"></a>亚稳态</h1><p>触发器具备其规定的建立(setup)和保持(hold)时间，在该时间参数内，输入信号在时钟的上升沿期间不能改变，否则会导致采集信号结果不可预知，即亚稳态。</p>
+<h1 id="亚稳态"><a href="#亚稳态" class="headerlink" title="亚稳态"></a>亚稳态</h1><p>触发器具备其规定的建立$(setup)$和保持$(hold)$时间，在该时间参数内，输入信号在时钟的上升沿期间不能改变，否则会导致采集信号结果不可预知，即亚稳态。</p>
 <p>亚稳态是指在设计的正常运行阶段的某个时间点，在一段时间内呈现不稳定的0或1状态的信号。</p>
 <p>在多时钟设计中，无法避免亚稳态，但可以采取策略抵消亚稳态的不利影响。</p>
-<p>触发器进入亚稳态的时间可以用参数MTBF(Mean Time Between Failures)来描述，即触发器采样失败的时间间隔，其公式如下所示：</p>
+<p>触发器进入亚稳态的时间可以用参数$MTBF(Mean Time Between Failures)$来描述，即触发器采样失败的时间间隔，其公式如下所示：</p>
 <script type="math/tex; mode=display">
 MTBF=e^ {t_r/\tau} / T_0fa</script><p>其中：</p>
 <ul>
-<li>t<sub>r</sub>    分辨时间 (时钟沿开始)</li>
-<li>\tau, T<sub>0</sub>    触发器参数</li>
-<li>f    采样时钟频率</li>
-<li>a   异步事件触发频率</li>
+<li>$t_r$  分辨时间 (时钟沿开始)</li>
+<li>$\tau, T_0   $ 触发器参数</li>
+<li>$f  $  采样时钟频率</li>
+<li>$a  $  异步事件触发频率</li>
 </ul>
 <p>通常，MTBF越大说明系统采样失败的可能性越小。因此，对于高速设计，MTBF更容易发生。对于一个典型的0.25um工艺的ASIC库中的一个触发器，我们取如下参数：</p>
 <script type="math/tex; mode=display">
-t_r=2.3ns, \tau=0.31ns, T_0= 9.6as, f=100MH_Z, a=10MH_Z, MTBF = 2.01 days</script><p>即触发器以100MH<sub>Z</sub>工作，假设异步时间触发的频率，也就是数据变化的频率与采样时钟的频率相同。使用10MH<sub>Z</sub>频率进行采样，每个上升沿数据都会发生变化，由数据可知没两天就可能会采集到一次亚稳态。如果使用单锁存器同步，则采样时钟上升沿采集原始信号数据时很可能导致采集信号亚稳态。</p>
-<p><img src="3.png" alt="3"></p>
-<p><img src="跨时钟域处理方案/image-20220510233046580.png" alt="image-20220510233046580"></p>
+t_r=2.3ns, \tau=0.31ns, T_0= 9.6as, f=100MH_Z, a=10MH_Z, MTBF = 2.01 days</script><p>即触发器以$100MH_Z$工作，假设异步时间触发的频率，也就是数据变化的频率与采样时钟的频率相同。使用$10MH_Z$频率进行采样，每个上升沿数据都会发生变化，由数据可知没两天就可能会采集到一次亚稳态。如果使用单锁存器同步，则采样时钟上升沿采集原始信号数据时很可能导致采集信号亚稳态。</p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/3.png" alt="3"></p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/image-20220510233046580.png" alt="image-20220510233046580"></p>
 <center>异步时钟的同步失败</center>
 
 <h1 id="单比特同步策略"><a href="#单比特同步策略" class="headerlink" title="单比特同步策略"></a>单比特同步策略</h1><p>为避免亚稳态，应尝试使MTBF尽量大。采用双锁存器可以改善该问题：</p>
-<p><img src="4.png" alt="4"></p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/4.png" alt="4"></p>
 <p>此时，b_dat2的MTBF由以下公式可以得出：</p>
 <script type="math/tex; mode=display">
 MTBF=e^{t_r / \tau} / T_0fa \times e^{t_r / \tau} / T_0 fa</script><p>如果同样代入上一节中所提供的参数进行计算，则可得b_dat2的MTBF为9.57*109(years)，由该结果可看出，采用双锁存器可以消除亚稳态问题。</p>
 <p><strong>注意A</strong></p>
 <p>时钟域B两级同步的寄存器与时钟域A的输出寄存器之间不能由组合逻辑—组合逻辑电路各个输入信号的不一致性以及组合逻辑内部路径的延时时间不一样，运算后的信号存在毛刺，如下图所示，由此导致B时钟域上升沿采集信号无法预知。</p>
-<p><img src="5.png" alt="5"></p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/5.png" alt="5"></p>
 <p>因此要想在B时钟域内能够采集到稳定的信号，时钟域A的输出信号必须经过触发器整形，保证在一个时钟周期中是稳定的信号。</p>
-<p><img src="6.png" alt="6"></p>
-<font color=red>**注意B**</font>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/6.png" alt="6"></p>
+<font color="red">**注意B**</font>
 
-<p>Clock-Gating Enable信号未经过异步处理</p>
+<p>$Clock-Gating Enable$信号未经过异步处理</p>
 <p>如下图所示的A信号经过A时钟域触发器整形后，再送到两级DFF同步器处理，但注意F2的使能信号Enable信号也是从A时钟域所得，当Enable信号变化时，由于时钟域不一样，无法保证使能后的B时钟域信号采集数据时满足Setup/Hold Time要求，此时F2输出信号也就变得无法预测。</p>
-<p><img src="7.PNG" alt="7"></p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/7.PNG" alt="7"></p>
 <p><strong>注意C</strong></p>
 <p>当快时钟域是慢时钟域频率的1.5倍或以上时，较慢频率的信号同步到较快频率时钟域通常不成问题—快采慢比慢采快存在的潜在问题更少，所以通常快采慢情形采取简单的两级触发同步器在时钟域间传递单个信号即可。</p>
 <p>即使采样信号比采用周期长，也可能面临信号改变正好处于时钟沿的SetUp和Hold Violation区域的问题，解决方案：</p>
 <ul>
 <li>开环地控制信号的长度</li>
 </ul>
-<p><img src="跨时钟域处理方案/image-20220510000511421.png" alt="image-20220510000511421"></p>
+<p><img src="/2022/05/09/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/image-20220510000511421.png" alt="image-20220510000511421"></p>
 <p>由此不需要知道接收时钟域的边沿信息，只需要在发送域保证发送信号长度即可</p>
 <ul>
-<li>闭环控制<font color=red>？？？</font></li>
+<li>闭环控制<font color="red">？？？</font></li>
 </ul>
 <p>采用反馈信号自动延长快时钟域的信号，将A时钟域传输信号打一拍送到B时钟域进行双触发器同步，同步后的信号再反馈回A时钟域，A中再进行双触发器同步，当A域中反馈同步信号为高时才将采样信号拉低，此时会有更高的延时以及更多同步触发器，但同时也能保证出现采样信号为未知的可能性更低。</p>
 <h1 id="多比特同步策略"><a href="#多比特同步策略" class="headerlink" title="多比特同步策略"></a>多比特同步策略</h1><p>对于多比特的控制信号或数据信号跨时钟域传输的问题，解决方案通常有：</p>
