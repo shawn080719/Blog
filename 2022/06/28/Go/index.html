@@ -27,11 +27,14 @@
 <meta property="og:site_name" content="Shawn&#39;s Blog">
 <meta property="og:description" content="本文简要介绍了学习Golang的流程，并对Golang的主要基础知识进行了梳理。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/06/28/Go/1.png">
+<meta property="og:image" content="http://example.com/2022/06/28/Go/2.png">
 <meta property="article:published_time" content="2022-06-28T13:11:52.000Z">
-<meta property="article:modified_time" content="2022-06-28T13:25:36.612Z">
+<meta property="article:modified_time" content="2022-06-28T13:43:09.247Z">
 <meta property="article:author" content="Shawn">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/06/28/Go/1.png">
 
 <link rel="canonical" href="http://example.com/2022/06/28/Go/">
 
@@ -225,7 +228,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-28 21:11:52 / 修改时间：21:25:36" itemprop="dateCreated datePublished" datetime="2022-06-28T21:11:52+08:00">2022-06-28</time>
+              <time title="创建时间：2022-06-28 21:11:52 / 修改时间：21:43:09" itemprop="dateCreated datePublished" datetime="2022-06-28T21:11:52+08:00">2022-06-28</time>
             </span>
 
           <br>
@@ -234,14 +237,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -285,16 +288,13 @@
 <p>当在函数局部对一全局变量进行同名的声明时，该局部变量实际上为一新变量（尽管和全局变量同名）—— 这时全局变量会暂时“隐藏”</p>
 <p>在局部变量释放后重新出现，不会受到局部赋值影响</p>
 <p>而若在函数局部对全局变量赋值，则会改变改变量的值（注意：若在该函数内再调用次级函数，且次级函数会调用到该变量时，次级函数实际调用的是全局变量，而不是再第一级函数内声明产生的临时变量）</p>
-<font color="red">作用域范围</font>    
-
-<ul>
+<h3 id="作用域范围"><a href="#作用域范围" class="headerlink" title="作用域范围"></a><font color="red">作用域范围</font></h3><ul>
 <li>全局变量能被各级函数作用域调用</li>
 <li>次级函数作用域内声明产生的临时变量并不能被次-次级函数作用域访问</li>
 <li>匿名函数作用域与其存在的函数相同</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    b := <span class="string">&quot;0&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(b)</span><br><span class="line">    f2()</span><br><span class="line">    <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(b)</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>作用域与声明周期</strong></p>
-<p>描述对象不同：</p>
+<h3 id="作用域与声明周期"><a href="#作用域与声明周期" class="headerlink" title="作用域与声明周期"></a><strong>作用域与声明周期</strong></h3><p>描述对象不同：</p>
 <ul>
 <li>作用域        声明语句</li>
 <li>声明周期    变量</li>
@@ -304,21 +304,17 @@
 <li>作用域        表示源代码的文本区域，是编译属性</li>
 <li>生命周期    指程序存在的有效时间段，该时间内可以被程序其他部分引用，是程序运行时候的概念</li>
 </ul>
-<p><strong>内存释放</strong></p>
-<p>Go编译器会做逃逸分析，分析局部变量的作用域是否逃出了函数的作用域，若逃出则将变量放到堆上，未逃出则放到栈上（在函数中使用fmt.Println和Println的区别），这在使用指针时很重要</p>
+<h3 id="内存释放"><a href="#内存释放" class="headerlink" title="内存释放"></a><strong>内存释放</strong></h3><p>Go编译器会做逃逸分析，分析局部变量的作用域是否逃出了函数的作用域，若逃出则将变量放到堆上，未逃出则放到栈上（在函数中使用fmt.Println和Println的区别），这在使用指针时很重要</p>
 <p>在slice和array上也会存在内存释放问题，当函数参数需要一个大数组中的部分数据时，即使通过切片减小了函数复制数据所需消耗的资源，但由于切片引用的数据仍属于该数组，所以数组还会存在内存中，由此造成资源的浪费</p>
 <p>最好的解决办法是通过copy将目标切片复制到基于另一数组的切片中，使原数组被垃圾回收</p>
-<p><strong>函数</strong></p>
-<p>在Go语言中，所有函数的参数都是拷贝传入的，函数参数将不再是函数调用时的原始变量</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a><strong>函数</strong></h3><p>在Go语言中，所有函数的参数都是拷贝传入的，函数参数将不再是函数调用时的原始变量</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> 函数名（输入参数）	返回值类型</span>&#123;</span><br><span class="line">	函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>拥有函数名的函数只能在包级语法块中被声明</p>
 <p>实际上普通有命名的函数也可以轻易的在自己的函数体中调用本身进行迭代</p>
 <p>不过，通常会有if判断语句或for循环等进行判断执行，要避免出现无线迭代的情况</p>
-<p><strong>指针</strong></p>
-<p>在Go语言中，指针不能指向常量或字面量（例：const变量）</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a><strong>指针</strong></h3><p>在Go语言中，指针不能指向常量或字面量（例：const变量）</p>
 <p>也不能进行经常导致C语言内存泄漏继而程序崩溃的指针运算（如：pointer + 2, 移动指针指向字符串的字节数或数组的某个位置） — 保证了内存安全（类似Java中的应用）</p>
-<p><strong>匿名函数</strong></p>
-<p>匿名函数的实现依赖于函数字面量，可以在任意表达式中表示一个函数值</p>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a><strong>匿名函数</strong></h3><p>匿名函数的实现依赖于函数字面量，可以在任意表达式中表示一个函数值</p>
 <p>函数字面量的语法和函数声明相似（func后没有函数名）</p>
 <p>其实际上是一种表达式，值被称为匿名函数（*在函数中定义的内部函数也可以引用该函数的变量）</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">squares</span><span class="params">()</span></span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> x <span class="type">int</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">		x++</span><br><span class="line">        <span class="keyword">return</span> x * x</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test_funcliteral <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">test_funcliteral = <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">    test_funcliteral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -330,7 +326,7 @@
 
 ！这里能调用的变量实际上是<font color="red">定义匿名函数的作用域内的变量（该闭包在main中定义，则能直接访问并‘保存’main中的变量，其他类型函数同理）</font> -- 并不是所有外部变量都能够直接调用（需要正常情况下能够访问到的变量）
 
-**迭代**
+### **迭代**
 
 注意使用range和for进行迭代时。循环变量是在循环块作用域内进行声明，且循环变量是在同一块地址上进行值得迭代，所有有时需要在循环内部新建一个局部变量进行数据保留，以免数据丢失
 
@@ -341,8 +337,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _, f := <span class="keyword">range</span> filenames &#123;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">		thumbnail.ImageFile(f) <span class="comment">//<span class="doctag">NOTE:</span> incorrect!</span></span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如上代码块中变量f是被所有的匿名函数值所共享，且会被连续的循环迭代所更新</p>
 <p>当新的Goroutine开始执行字面函数时，for循环可能已经更新了f并且开始新的一轮迭代或（更有可能的）已经结束了整个循环，所以当这些Goroutine开始读取f的值时，它们所看到的值已经是slice的最后一个元素了。显示地添加这个参数，能够确保调用f所使用地数值是当go语句执行时“当前”的那个迭代变量数值</p>
-<p><strong>方法</strong></p>
-<p>在Go中，可以为数值、字符串、slice、map定义附加行为，即在同一个包内的任意命名类型定义方法，只要其底层类型不是指针或interface</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a><strong>方法</strong></h3><p>在Go中，可以为数值、字符串、slice、map定义附加行为，即在同一个包内的任意命名类型定义方法，只要其底层类型不是指针或interface</p>
 <p>（<em>不管method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针类型进行调用的，编译器会帮你做类型转换，但也要注意对函数调用时参数的复制安全问题，比如复制指针，但其调用的仍然是同一个底层数据）</em></p>
 <p>是否使用指针要考虑对象是否很大，以及如果声明为非指针变量，则调用会产生一次拷贝</p>
 <p><a target="_blank" rel="noopener" href="https://chai2010.cn/advanced-go-programming-book/ch1-basic/ch1-04-func-method-interface.html">https://chai2010.cn/advanced-go-programming-book/ch1-basic/ch1-04-func-method-interface.html</a></p>
@@ -366,6 +361,27 @@
 <li>接收者是指针的方法不能通过值对象调用，因为存储在接口中的值没有地址</li>
 </ul>
 <p>将一个值赋值给一个接口时，编译器会确保所有可能的接口方法都可以在此值对象上被调用，因此不正确的赋值在编译期就会失败</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a><font color="red">接口</font></h3><p>接口中的多态：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/11.1.md">https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/11.1.md</a></p>
+<font color="red">(结构体内嵌接口，可以假设该struct就是interface的一个实现，而不管struct是否已经实现interface所定义的函数)</font>
+
+<p><strong><em>当一个类型为接口中的所有方法提供定义时，则称该类型实现了该接口</em></strong></p>
+<p>在Go中接口和对象之间的转换非常灵活，可以轻易的进行隐式转换，所以有时需要新定义一个特殊方法用以区分接口</p>
+<p>正如struct类型可以包含一个匿名字段，interface也可以嵌套另外一个接口</p>
+<p>如果inter1作为inter2的一个嵌入字段，则inter2隐式地包含了inter1里面的method</p>
+<p>有些新的接口类型通过组合已有的接口来定义（内含的接口都为单方法实现的接口）该语法和结构内嵌相似，如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ReadWriter <span class="keyword">interface</span> &#123;</span><br><span class="line">    Read</span><br><span class="line">    Writer</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ReadWriteCloser <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">    Closer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过考虑数据类型之间相同功能来创建抽象概念，而不是类型的相同数字字段</p>
+<p>Interface{}的值不是任意类型，其类型就是其本身</p>
+<p>接口包含两个字的大小，类似于（type, value）</p>
+<p><strong>指针类型可以调用其指向的值的方法，但值方法不能调用指向其本身的指针的方法（Golang所有传递都是值传递的特性造成的）</strong></p>
+<p>静态类型就是变量声明时的类型，不会随着程序编译而进行变化</p>
+<p>动态类型则可看作是变量的“实时类型”，所以定义变量可以按如下所示：</p>
+<script type="math/tex; mode=display">
+age := (int)(25)        //或者使用age := (interface{})(25)</script><p><em>动态类型是程序运行时系统才能看见的类型</em></p>
+<p>接口根据是否有具体的方法可以分为iface和eface 分别表示有方法的接口和无方法的接口</p>
+<p><img src="/2022/06/28/Go/1.png" alt="1"></p>
+<p><img src="/2022/06/28/Go/2.png" alt="2"></p>
 <h2 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h2><h3 id="错误声明"><a href="#错误声明" class="headerlink" title="错误声明"></a>错误声明</h3><p>一般使用os库中的Stderr方法配合Fprintf进行错误流的报告，使用表示任意类型默认格式值的动词%v，向标准错误流打印一条信息(nil内置值等于NULL)，err的值为nil时表示操作无误。</p>
 <h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p>使用bufio包中的Newscanner方法</p>
 
@@ -448,7 +464,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">2.1.1.</span> <span class="nav-text">声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A3%B0%E6%98%8E"><span class="nav-number">2.2.1.</span> <span class="nav-text">错误声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">读取文件</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">2.1.1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%8C%83%E5%9B%B4"><span class="nav-number">2.1.2.</span> <span class="nav-text">作用域范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F"><span class="nav-number">2.1.3.</span> <span class="nav-text">作用域与声明周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE"><span class="nav-number">2.1.4.</span> <span class="nav-text">内存释放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.5.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88"><span class="nav-number">2.1.6.</span> <span class="nav-text">指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.7.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.8.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.1.9.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A3%B0%E6%98%8E"><span class="nav-number">2.2.1.</span> <span class="nav-text">错误声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">读取文件</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -516,12 +532,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">15k</span>
+    <span title="站点总字数">16k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">15 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
