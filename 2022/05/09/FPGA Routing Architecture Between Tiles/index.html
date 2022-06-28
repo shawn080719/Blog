@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="基本结构 — $Island$$Switch Block$目前通用的几种交换块结构为：$Universal, Disjoint, Wil$  $Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线">
+  <meta name="description" content="本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FPGA Routing Architecture Between Tiles">
 <meta property="og:url" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/index.html">
 <meta property="og:site_name" content="Shawn&#39;s Blog">
-<meta property="og:description" content="基本结构 — $Island$$Switch Block$目前通用的几种交换块结构为：$Universal, Disjoint, Wil$  $Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线">
+<meta property="og:description" content="本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/SwitchBlock.PNG">
 <meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/physical%20layer.PNG">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Channel%20Width%20Required%20for%20varying%20fraction%20of%20DDW.PNG">
 <meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Total%20Routing%20Area.PNG">
 <meta property="article:published_time" content="2022-05-09T12:59:14.000Z">
-<meta property="article:modified_time" content="2022-05-11T14:58:38.058Z">
+<meta property="article:modified_time" content="2022-06-28T13:17:32.988Z">
 <meta property="article:author" content="Shawn">
 <meta property="article:tag" content="FPGA">
 <meta name="twitter:card" content="summary">
@@ -242,7 +242,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-11 22:58:38" itemprop="dateModified" datetime="2022-05-11T22:58:38+08:00">2022-05-11</time>
+                <time title="修改时间：2022-06-28 21:17:32" itemprop="dateModified" datetime="2022-06-28T21:17:32+08:00">2022-06-28</time>
               </span>
 
           <br>
@@ -251,7 +251,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -270,7 +270,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="基本结构-—-Island"><a href="#基本结构-—-Island" class="headerlink" title="基本结构 — $Island$"></a>基本结构 — $Island$</h1><h2 id="Switch-Block"><a href="#Switch-Block" class="headerlink" title="$Switch Block$"></a>$Switch Block$</h2><p>目前通用的几种交换块结构为：$Universal, Disjoint, Wil$</p>
+        <p>本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。</p>
+<span id="more"></span>
+<h1 id="基本结构-—-Island"><a href="#基本结构-—-Island" class="headerlink" title="基本结构 — $Island$"></a>基本结构 — $Island$</h1><h2 id="Switch-Block"><a href="#Switch-Block" class="headerlink" title="$Switch Block$"></a>$Switch Block$</h2><p>目前通用的几种交换块结构为：$Universal, Disjoint, Wil$</p>
 <p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/SwitchBlock.PNG" alt="SwitchBlock"></p>
 <p>$Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线轨道和晶体管来实现。</p>
 <h2 id="描述参数"><a href="#描述参数" class="headerlink" title="描述参数"></a>描述参数</h2><ul>
@@ -282,7 +284,6 @@
 <li>$F_{c_{in}}$    连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输入可连接的轨道数与总轨道数之比    $0.1 to 1.0$</li>
 <li>$F_{c_{out}} $   连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输出可连接的轨道数与总轨道数之比    $0.1 to 1.0$</li>
 </ul>
-<span id="more"></span>
 <h2 id="物理层部署"><a href="#物理层部署" class="headerlink" title="物理层部署"></a>物理层部署</h2><p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/physical layer.PNG" alt="physical layer"></p>
 <p>对于$F_s = 3$的交换块，其任意输入都有三个潜在的连接对象；同理，任意输出都有三个潜在的输入连接对象。因此如左图所示的交换快Top结构可具体为右图中的多路选择器，其晶体管级实现根据具体情况决定。</p>
 <h1 id="TOP-实现"><a href="#TOP-实现" class="headerlink" title="$TOP$实现"></a>$TOP$实现</h1><h2 id="Single-Drive-Routing"><a href="#Single-Drive-Routing" class="headerlink" title="$Single Drive Routing$"></a><a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~jayar/pubs/luu/luufpga09.pdf">$Single Drive Routing$</a></h2><p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/1.PNG" alt="1"></p>
@@ -346,8 +347,8 @@
       <i class="fa fa-chevron-left"></i> Xilinx的RAM使用
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/06/28/Go/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
+    <a href="/2022/06/28/Go/" rel="next" title="Go">
+      Go <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -428,7 +429,7 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
