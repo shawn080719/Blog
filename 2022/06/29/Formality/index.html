@@ -20,31 +20,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。">
+  <meta name="description" content="Formality">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FPGA Routing Architecture Between Tiles">
-<meta property="og:url" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/index.html">
+<meta property="og:title" content="Formality">
+<meta property="og:url" content="http://example.com/2022/06/29/Formality/index.html">
 <meta property="og:site_name" content="Shawn&#39;s Blog">
-<meta property="og:description" content="本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。">
+<meta property="og:description" content="Formality">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/SwitchBlock.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/physical%20layer.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/1.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/ReplicationgChannel.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Adjust_before.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Adjust_after.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/DirectDriveMux.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/fraction%20direct%20routing.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Channel%20Width%20Required%20for%20varying%20fraction%20of%20DDW.PNG">
-<meta property="og:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Total%20Routing%20Area.PNG">
-<meta property="article:published_time" content="2022-05-09T12:59:14.000Z">
-<meta property="article:modified_time" content="2022-06-28T13:17:32.988Z">
+<meta property="og:image" content="http://example.com/2022/06/29/Formality/Project/Blog.git/MarkDown/Formality/compare%20point.png">
+<meta property="og:image" content="http://example.com/2022/06/29/Formality/Project/Blog.git/MarkDown/Formality/logic%20core.PNG">
+<meta property="article:published_time" content="2022-06-29T13:35:32.000Z">
+<meta property="article:modified_time" content="2022-06-29T13:36:02.337Z">
 <meta property="article:author" content="Shawn">
-<meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="Formality">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/SwitchBlock.PNG">
+<meta name="twitter:image" content="http://example.com/2022/06/29/Formality/Project/Blog.git/MarkDown/Formality/compare%20point.png">
 
-<link rel="canonical" href="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/">
+<link rel="canonical" href="http://example.com/2022/06/29/Formality/">
 
 
 <script id="page-configurations">
@@ -57,7 +49,7 @@
   };
 </script>
 
-  <title>FPGA Routing Architecture Between Tiles | Shawn's Blog</title>
+  <title>Formality | Shawn's Blog</title>
   
 
 
@@ -212,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/Formality/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/test1.png">
@@ -225,7 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          FPGA Routing Architecture Between Tiles
+          Formality
         </h1>
 
         <div class="post-meta">
@@ -234,16 +226,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-05-09 20:59:14" itemprop="dateCreated datePublished" datetime="2022-05-09T20:59:14+08:00">2022-05-09</time>
+              <time title="创建时间：2022-06-29 21:35:32 / 修改时间：21:36:02" itemprop="dateCreated datePublished" datetime="2022-06-29T21:35:32+08:00">2022-06-29</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-28 21:17:32" itemprop="dateModified" datetime="2022-06-28T21:17:32+08:00">2022-06-28</time>
-              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -251,14 +237,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -270,61 +256,78 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。</p>
+        <p>Formality</p>
 <span id="more"></span>
-<h1 id="基本结构-—-Island"><a href="#基本结构-—-Island" class="headerlink" title="基本结构 — $Island$"></a>基本结构 — $Island$</h1><h2 id="Switch-Block"><a href="#Switch-Block" class="headerlink" title="$Switch Block$"></a>$Switch Block$</h2><p>目前通用的几种交换块结构为：$Universal, Disjoint, Wil$</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/SwitchBlock.PNG" alt="SwitchBlock"></p>
-<p>$Disjoint$类型会导致路由线路被限制在同一类型轨道内，如在该图中0通道输入仅能连接到0轨道输出，因此任何由$CLB$导入0轨道的信号都不能通过其他轨道路由，而$Universal$和$Wilton$型则属于全连接类型，且其$Top$结构仅需更少的布线轨道和晶体管来实现。</p>
-<h2 id="描述参数"><a href="#描述参数" class="headerlink" title="描述参数"></a>描述参数</h2><ul>
-<li>$k$      $LUT$输入    $3 to 7 inputs$</li>
-<li>$N$      $Cluster$ 中 $LUT$ 数量    $1 to 10 LUTs$</li>
-<li>$I$      $CLB$输入    $4 to 40 inputs$</li>
-<li>$W $    通道宽度，表示每个通道中的track数    $10 to 60 tracks$</li>
-<li>$F_s$    交换块灵活度$(Flexibility of Swtich Block)$    表示发生在开关块中轨道上的可编程连接的数量</li>
-<li>$F_{c_{in}}$    连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输入可连接的轨道数与总轨道数之比    $0.1 to 1.0$</li>
-<li>$F_{c_{out}} $   连接块灵活度$(Flexibility of ConnectionBlock)$表示$CLB$ 输出可连接的轨道数与总轨道数之比    $0.1 to 1.0$</li>
-</ul>
-<h2 id="物理层部署"><a href="#物理层部署" class="headerlink" title="物理层部署"></a>物理层部署</h2><p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/physical layer.PNG" alt="physical layer"></p>
-<p>对于$F_s = 3$的交换块，其任意输入都有三个潜在的连接对象；同理，任意输出都有三个潜在的输入连接对象。因此如左图所示的交换快Top结构可具体为右图中的多路选择器，其晶体管级实现根据具体情况决定。</p>
-<h1 id="TOP-实现"><a href="#TOP-实现" class="headerlink" title="$TOP$实现"></a>$TOP$实现</h1><h2 id="Single-Drive-Routing"><a href="#Single-Drive-Routing" class="headerlink" title="$Single Drive Routing$"></a><a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~jayar/pubs/luu/luufpga09.pdf">$Single Drive Routing$</a></h2><p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/1.PNG" alt="1"></p>
-<p>在$Single Drive Routing$结构中，可编程性是通过在驱动器的输入上使用多路复用器来实现的，每个布线轨道都只有一个物理驱动器，这种对单个驱动器的限制意味着逻辑块输出只能连接到其驱动器与逻辑块相邻的布线轨道，以避免与相邻逻辑集群的布线过长。典型的单驱动器布线架构将驱动器放置在布线的一端而不是中间，每根线只能在特定方向发送信号。</p>
-<p>目前，<a target="_blank" rel="noopener" href="http://www.altera.com/literature/hb/ stratix-iv/stratix4_handbook.pdf">$Altera$</a>及<a target="_blank" rel="noopener" href="http://www.altera.com/literature/hb/ stratix-iv/stratix4_handbook.pdf">$Xilinx$</a>最近推出的所有$FPGA$设备都特定使用单驱动器路由架构。</p>
-<h2 id="基于定长路由线-tile-的-fabric-生成"><a href="#基于定长路由线-tile-的-fabric-生成" class="headerlink" title="基于定长路由线$tile$的$fabric$生成"></a><a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~vaughn/papers/fpga2000.pdf">基于定长路由线$tile$的$fabric$生成</a></h2><p>通常构建$fabric$需要根据每个$tile$的具体连接情况单独指定其开关块和连接块。如果只是简单的对每个$tile$进行路由通路复制，则会出现如下图所示的问题——部分$CLB$输出引脚无法通过路由轨道驱动部分其他$CLB$的输入引脚：</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/ReplicationgChannel.PNG" alt="ReplicationgChannel"></p>
-<p>造成该问题的原因，是在$Routing$中采用的$Segment$无法在中端加入开关——否则实际布线时就会编程两根较短导线，而单纯的重复相同$tile$的布局无法针对该路由结构的情况进行针对性调整。</p>
-<p>可通过规律性调整路由线起点解决该问题。</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Adjust_before.PNG" alt="Adjust_before"></p>
-<p>如上图所示的$fabric$结构，将每个tile对应的水平路由轨道从下到上分别命名为$Channel0-2$，垂直路由轨道从左到右分别命名为$Channel0-2$；首先考虑水平$Channel$，对于轨道0中$track0$线段的左端与满足如下条件的逻辑块对齐：</p>
-<script type="math/tex; mode=display">
-(i + 2) module 3 = 0</script><p>其中$ i $是逻辑块的水平(x)坐标。则对于轨道1中$track0$线段的左端与满足如下条件的逻辑块对齐：</p>
-<script type="math/tex; mode=display">
-(i + 3) module3 = 0</script><p>对于其他编号的$track$的起点则要求顺序后移——随$Channel$编号增加方向；</p>
-<p>垂直方向通道判断$Segment$起点方法公式与水平通道相同(编号规则不改变)，且执行类似的起点后移——通道$i+1$中每个$Segment$起点相对于通道i中的起点向后移动一个$CLB$。</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Adjust_after.PNG" alt="Adjust_after"></p>
-<p>再更改其$Top$结构，使其每个$Tile$路由结构相同，便于复制生成目标大小的$fabric$。</p>
-<h1 id="Detailed-Routing-Architecture"><a href="#Detailed-Routing-Architecture" class="headerlink" title="$Detailed Routing Architecture$"></a><a target="_blank" rel="noopener" href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1067.891&amp;rep=rep1&amp;type=pdf">$Detailed Routing Architecture$</a></h1><p>影响FPGA整体性能的一个主要因素是路由开关的选择，路由开关可由输入复用传输晶体管、缓冲器和输出解复用晶体管的任意组合进行建模。其组合中在电气上可行的5中结构如下表所示：</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/DirectDriveMux.PNG" alt="DirectDriveMux"></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>形式验证是一种系统化方法，用穷举的算法技术证明设计实现满足设计规范的特征。其覆盖了输入的所有可能序列，不需要开发测试向量，能够检查所有的边角逻辑，提供了完整的测试覆盖率。</p>
+<p>在IC的流程中通常用于进行不同流程步骤的Netlist的比较：</p>
 <ul>
-<li>缓冲器</li>
-<li>缓冲器和输出传输晶体管</li>
-<li>传输晶体管</li>
-<li>直接驱动多路复用器</li>
-<li>带缓冲器的传输晶体管多路复用器和输出多路复用器</li>
+<li>逻辑综合 Netlist</li>
+<li>Floorplan Netlist</li>
+<li>Placement Netlist</li>
+<li>CTSinserted Netlist</li>
+<li>P&amp;R Netlist</li>
 </ul>
-<p>缓冲器没有任何执行可编程路由的能力，但可能部署在架构中的不同位置以重新为信号供电。</p>
-<p>在本论文中，尝试使用不同线长占比的$Routing$结构对同一基准电路进行布线，并检测其消耗资源情况，如下图显示对包含$50\%Segment$长度4和$50\%Segment$长度16，以及$50\%Segment$长度4和$50\%Segment$长度8两种布线结构使用直接驱动$(Direct Routing)$的效果。其基本架构在两种布线结构中都使用了$50\%$的传输晶体管和$50\%$的缓冲开关。</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/fraction direct routing.PNG" alt="fraction direct routing"></p>
-<center>Average critical path delay for varying fraction of direct-drive routing wires</center>
+<p>每一个步骤后都会有新的逻辑加入到Netlist中，但需要保证这个新的逻辑的加入不会改变之间Netlist的功能。</p>
+<h1 id="涉及名词及概念"><a href="#涉及名词及概念" class="headerlink" title="涉及名词及概念"></a>涉及名词及概念</h1><ul>
+<li><em>Reference Design</em>: 初始Verilog电路设计</li>
+<li><em>Implementation</em> Netlist: 综合后电路网表</li>
+</ul>
+<h2 id="Compare-Point"><a href="#Compare-Point" class="headerlink" title="Compare Point"></a>Compare Point</h2><p>Formality uses the following design objects to create compare point automatically:</p>
+<ul>
+<li>Primary Output Port</li>
+<li>Sequential Element(Register, Latch)</li>
+<li>Black Box(Input Pins)</li>
+<li>Nets driven by multiple drivers, where at least one driver is a port or black box</li>
+</ul>
+<p>Formality依据上诉规则自动创建 compare point，除此之外用户也可自定义创新compare point。</p>
+<p><img src="/2022/06/29/Formality/Project\Blog.git\MarkDown\Formality\compare point.png" alt="compare point"></p>
+<h2 id="Logic-Cones"><a href="#Logic-Cones" class="headerlink" title="Logic Cones"></a>Logic Cones</h2><p><img src="/2022/06/29/Formality/Project\Blog.git\MarkDown\Formality\logic core.PNG" alt="logic core"></p>
+<p>Logic Cones包含从一个design object作为起始位，往回回溯到另一design object为止的中间所有组合逻辑。</p>
+<p>对于Formality来说，Logic Cones中的起始点为Formality中的Compare Points，终点为Primary Inputs or Compare points。</p>
+<p>由于在Formality中寄存器被当作比较点，因此logic cones只能是组合逻辑的集合。</p>
+<h2 id="Black-Box"><a href="#Black-Box" class="headerlink" title="Black Box"></a>Black Box</h2><p><em>A black box is an instance of a design whose function isunknown. Black boxes are</em><br><em>commonly used for components of a design that are not synthesized. Examples ofcommon</em><br><em>black boxes include RAMs, ROMS, analog circuits, and hard IP blocks.</em></p>
+<p><em>The inputs to black boxes are treated as compare points andthe outputs of the black boxes are treated as input points to other logic cones.</em></p>
+<p>Black Box主要是一些内部功能未知的模块，因此其中间逻辑不作为Logic Cones，此外Black Box的输入被认为是一个compare point</p>
+<h1 id="验证原理"><a href="#验证原理" class="headerlink" title="验证原理"></a>验证原理</h1><p>Formality找到reference design 和implementation design 二者相对应的 compare points，把相邻两个compare point 之间的组合逻辑电路转化为数学模型，把每一个compare point的所有输入的逻辑情况都遍历一遍，比较二者是否一致，既比较Reference Design和Implementation Netlist对应每一个compare point 在输入相同的情况下所得到的逻辑输出值是否相同。</p>
+<p>相邻两个compare point 间均为一些组合逻辑电路，Formality的主要工作就是比较这两个组合逻辑电路的功能是否一致。</p>
+<h2 id="比较算法-Matching"><a href="#比较算法-Matching" class="headerlink" title="比较算法(Matching)"></a>比较算法(Matching)</h2><p>确定compare point后，需要以一种确定的方法将reference design中的compare point与implementation netlist中的进行对应。</p>
+<ul>
+<li>Name-based matching technique: 通过object-name进行对应</li>
+<li>User-match：在基于name-based matching中若部分compare point未找到对应，可通过下述命令report，并进行手工对应:</li>
+</ul>
+<p>​                                                    <strong><em>report_unmatched_points</em></strong></p>
+<ul>
+<li>Topological Equivalence: 假设两个没有对应的compare point的logic crone在拓扑上是一样的，则认为该两个compare point是对应的。</li>
+<li>Signature Analysis: Signature  Analysis是对设计中compare point的功能和拓扑签名的迭代分析。功能签名由随机输入的仿真pattern驱动；拓扑签名来源于Logic cones的拓扑结构。</li>
+</ul>
+<p>Design Consistency: 设计一致性，要求不同设计在面对相同的input pattern时产生相同的输出响应。但当某设计输出存在<font color="red"><strong>X</strong></font>状态，而另一个设计响应未0、1时也可称为等价。</p>
+<p>Design Equality: 设计相等，与Design Consistency类似，但对于<font color="red"><strong>X</strong></font>状态，要求对应的设计输出也为<font color="red"><strong>X</strong></font>状态。</p>
+<p>Formality基于Logic Cones来做等效性检查，当Reference Design的所有Compare point的Logic Cones和Implementation Netlist中的均<strong><em>一致</em></strong>，则称该两电路等效。</p>
+<p>通常Implementation Netlist中的Compare Point数量大于Reference Design（有新逻辑加入设计）。</p>
+<h1 id="验证思路"><a href="#验证思路" class="headerlink" title="验证思路"></a>验证思路</h1><p>传统的后仿标准流程需要将综合后的SDF文件内的时序信息反标到Verilog网表中再次进行动态后仿真，该种方案的缺点主要有：</p>
+<ul>
+<li>动态后仿真的代码覆盖率基于输入激励pattern的完备性，人为设计输出向量很难实现100%覆盖</li>
+<li>消耗时间较多，不适用于大规模复杂的电路</li>
+</ul>
+<p>对于仿真而言，电路的逻辑功能的正确性可以由RTL或者门级的功能仿真来保证；其次，电路的时序是否满足可以通过STA（静态时序分析，自动检测时序路径，不会考虑电路的逻辑功能，因此无法判断电路逻辑功能经过的路线和非逻辑功能经过的路线）得到。两种验证手段相辅相成，确保验证工作高效、可靠地完成（Formality为纯逻辑验证，不包含物理和timing信息，因此需要STA工具的配合）。因此目前动态后仿真在大多数情况下已经不需要再进行，由STA + Formality进行替代。由于STA + Formality原理完全基于数学计算，不需要任何输出pattern，因此可以轻易实现电路path全覆盖。</p>
+<p>其实动态后仿真并不是完全被替代，只能采用该方案可能会消耗过多时间，因此设计人员会采用STA + Formality，但该种方法也存在其缺点。由于<strong>STA只检查边沿timing，而Formality只看Register和Combination的抽象功能</strong>。动态后仿真再如下三种场景中是必要的：</p>
+<ul>
+<li>异步逻辑设计部分</li>
+<li>ATPG向量验证</li>
+<li>初始化状态验证</li>
+</ul>
+<p>除此之外，动态后仿真产生的VCD文件还可以做功耗分析。</p>
+<p>因此，目前设计师采取了折中的策略：采用Formality保证门级网表在逻辑功能上与RTL设计保持一致，配合静态时序分析工具保证门级网表的时序正确，对于全同步的设计，甚至可以不做门级仿真；在面对异步设计和初始化等应用时，只需要针对该部分电路模块进行较少的动态后仿真工作，由此加快设计进度。</p>
+<font color="red">! 与DC相比，PT分析的更快，需要的内存更少，且报告的信息量更多。更准确，包括一个较为特殊的功能Bottleneck Analysis -- 提取violation的path中共同的cell指令：</font>
 
-<p>在实验中，$fabric$路由面积随着直接驱动开关的使用而单调减小。</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Channel Width Required for varying fraction of DDW.PNG" alt="Channel Width Required for varying fraction of DDW"></p>
-<center>Channel Width required for varing fraction of direct-drive wires</center>
-
-<p>$4/8$架构所需的通道宽度大致恒定，而由于单个驱动点对$Segement$为16的导线形成了更严格的布线约束，因此$4/16$架构对应的通道宽度有所增加。</p>
-<p><img src="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/Total Routing Area.PNG" alt="Total Routing Area"></p>
-<center>Total routing area required for varying fraction of direct-drive wires</center>
-
-<p>尽管$4/8$结构导致通道宽度增加，但总布线面积回随着布线多路复用器输入上的小晶体管替换宽布线晶体管而减少。因此如上图所示，在两种现场组合中的任何一种中，$100\%$直接驱动多路复用器都会形成速度最快和面积最小的$fabric$。</p>
+<p>​                                                            <strong><em>report_bottleneck</em></strong></p>
+<h1 id="验证步骤"><a href="#验证步骤" class="headerlink" title="验证步骤"></a>验证步骤</h1><ul>
+<li>Load reference design and implementation netlist</li>
+<li>match compare points</li>
+<li>verify</li>
+</ul>
+<h1 id="测试详情"><a href="#测试详情" class="headerlink" title="测试详情"></a>测试详情</h1><p>Formality是一个基于数学意义的验证方法，通过比较设计A、B，当A的逻辑功能被B包含，则形式验证认为是通过的。注意并不需要两个设计完全相等，而是逻辑上具有包含的关系，此外Formality的目标是验证电路综合后的逻辑功能是否有所改变，因此在形式验证时有可能在Verify步骤中检查出部分compare point不对应的情况，这时应根据具体设计检查该部分compare point是否与设计的逻辑功能无关，再进行后续逻辑功能对比。</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XznSbJBlAdZvtAIpyzajAA">https://mp.weixin.qq.com/s/XznSbJBlAdZvtAIpyzajAA</a></p>
 
     </div>
 
@@ -334,7 +337,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/FPGA/" rel="tag"># FPGA</a>
+              <a href="/tags/Formality/" rel="tag"># Formality</a>
           </div>
 
         
@@ -343,13 +346,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/09/Xilinx%E7%9A%84RAM%E4%BD%BF%E7%94%A8/" rel="prev" title="Xilinx的RAM使用">
-      <i class="fa fa-chevron-left"></i> Xilinx的RAM使用
+    <a href="/2022/06/28/Go/" rel="prev" title="Go">
+      <i class="fa fa-chevron-left"></i> Go
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/06/28/Go/" rel="next" title="Go">
-      Go <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -408,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84-%E2%80%94-Island"><span class="nav-number">1.</span> <span class="nav-text">基本结构 — $Island$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Switch-Block"><span class="nav-number">1.1.</span> <span class="nav-text">$Switch Block$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">描述参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E9%83%A8%E7%BD%B2"><span class="nav-number">1.3.</span> <span class="nav-text">物理层部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TOP-%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">$TOP$实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-Drive-Routing"><span class="nav-number">2.1.</span> <span class="nav-text">$Single Drive Routing$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AE%9A%E9%95%BF%E8%B7%AF%E7%94%B1%E7%BA%BF-tile-%E7%9A%84-fabric-%E7%94%9F%E6%88%90"><span class="nav-number">2.2.</span> <span class="nav-text">基于定长路由线$tile$的$fabric$生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Detailed-Routing-Architecture"><span class="nav-number">3.</span> <span class="nav-text">$Detailed Routing Architecture$</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%89%E5%8F%8A%E5%90%8D%E8%AF%8D%E5%8F%8A%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">涉及名词及概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Compare-Point"><span class="nav-number">2.1.</span> <span class="nav-text">Compare Point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logic-Cones"><span class="nav-number">2.2.</span> <span class="nav-text">Logic Cones</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Black-Box"><span class="nav-number">2.3.</span> <span class="nav-text">Black Box</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">验证原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E7%AE%97%E6%B3%95-Matching"><span class="nav-number">3.1.</span> <span class="nav-text">比较算法(Matching)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%80%9D%E8%B7%AF"><span class="nav-number">4.</span> <span class="nav-text">验证思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.</span> <span class="nav-text">验证步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%AF%A6%E6%83%85"><span class="nav-number">6.</span> <span class="nav-text">测试详情</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
