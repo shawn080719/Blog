@@ -20,30 +20,35 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Test Description">
-<meta property="og:type" content="website">
+  <meta name="description" content="Design Compiler Utils本文用于记录学习Design Compiler部分知识点 基本概念FANOUT在DesignCompiler中设置的MAX_FANOUT并不是指目标端口最大连接Cell数量为MAX_FANOUT，而是指的具体的扇出值，即负载的大小，而每个单元的扇出负载是不同的；例如普通反相器inv的具体负载值浮动范围可从0.25至3，该fanout_load由工艺库决定，">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Shawn&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2022/07/25/Design%20Compiler%20Utils/index.html">
 <meta property="og:site_name" content="Shawn&#39;s Blog">
-<meta property="og:description" content="Test Description">
+<meta property="og:description" content="Design Compiler Utils本文用于记录学习Design Compiler部分知识点 基本概念FANOUT在DesignCompiler中设置的MAX_FANOUT并不是指目标端口最大连接Cell数量为MAX_FANOUT，而是指的具体的扇出值，即负载的大小，而每个单元的扇出负载是不同的；例如普通反相器inv的具体负载值浮动范围可从0.25至3，该fanout_load由工艺库决定，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/07/25/Design%20Compiler%20Utils/Project/Blog.git/MarkDown/DC/timingloopinsidetile.PNG">
+<meta property="og:image" content="http://example.com/2022/07/25/Design%20Compiler%20Utils/Project/Blog.git/MarkDown/DC/timingloopfabric.PNG">
+<meta property="article:published_time" content="2022-07-25T12:54:23.952Z">
+<meta property="article:modified_time" content="2022-07-25T12:53:21.864Z">
 <meta property="article:author" content="Shawn">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/07/25/Design%20Compiler%20Utils/Project/Blog.git/MarkDown/DC/timingloopinsidetile.PNG">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/07/25/Design%20Compiler%20Utils/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Shawn's Blog</title>
+  <title> | Shawn's Blog</title>
   
 
 
@@ -191,9 +196,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -209,10 +215,9 @@
       <meta itemprop="name" content="Shawn's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/07/25/Design%20Compiler%20Utils/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -250,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Design-Compiler-Utils"><a href="#Design-Compiler-Utils" class="headerlink" title="Design Compiler Utils"></a>Design Compiler Utils</h1><p>本文用于记录学习Design Compiler部分知识点</p>
+        <h1 id="Design-Compiler-Utils"><a href="#Design-Compiler-Utils" class="headerlink" title="Design Compiler Utils"></a>Design Compiler Utils</h1><p>本文用于记录学习Design Compiler部分知识点</p>
 <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h3 id="FANOUT"><a href="#FANOUT" class="headerlink" title="FANOUT"></a>FANOUT</h3><p>在DesignCompiler中设置的MAX_FANOUT并不是指目标端口最大连接Cell数量为MAX_FANOUT，而是指的具体的<font color="red"><strong>扇出值</strong></font>，即负载的大小，而每个单元的扇出负载是不同的；例如普通反相器inv的具体负载值浮动范围可从0.25至3，该fanout_load由工艺库决定，当有的工艺库单元并不存在该属性时，DC会去寻找该工艺库是否有默认的fanout_load，若有则使用该值替代，当没有时就会自动将fanout_load设置为0，即输入端口可以带任意数量的负载，为解决该问题就需要手动设置default_fanout_load。</p>
 <h3 id="DDC"><a href="#DDC" class="headerlink" title="DDC"></a>DDC</h3><p>在Design Compiler中，read指令将RTL转化为基于GTECH的网表，当设计较大时，该过程很消耗时间，因此在执行link等操作前在确保RTL设计无误后，先将其以.DDC文件格式保存能够减少后续重新read设计的时间</p>
 <h3 id="路径延时"><a href="#路径延时" class="headerlink" title="路径延时"></a>路径延时</h3><p>Design Compiler在综合时预估pre_layout的cell和net延时方法有：</p>
@@ -328,443 +333,31 @@
 <h1 id="Design-Compiler-SetUp-TCL-Exrample"><a href="#Design-Compiler-SetUp-TCL-Exrample" class="headerlink" title="Design Compiler SetUp TCL Exrample"></a>Design Compiler SetUp TCL Exrample</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"># ###########################################################</span><br><span class="line">#</span><br><span class="line"># Filename	.synopsys_dc.setup </span><br><span class="line"># Synopsis	Setup file for Synopsys Design Compiler</span><br><span class="line"># Owner		MICS Lab, Virginia Tech, Blacksburg</span><br><span class="line"># Author	Jeannette Djigbenou (JDDJIG01@VT.EDU)</span><br><span class="line">#               Hetaswi Vankani (HETASWI@VT.EDU)</span><br><span class="line"># Date		September 14, 2013</span><br><span class="line"># </span><br><span class="line"># Tool		Design Compiler Y-2006.06-SP2</span><br><span class="line"># Command 	dc_shell-xg-t </span><br><span class="line">#</span><br><span class="line"># ###########################################################</span><br><span class="line"></span><br><span class="line"># Standard Information</span><br><span class="line">set company &quot;MICS Lab, Virginia Tech&quot;</span><br><span class="line">set designer  &quot;Hetaswi Vankani (hetaswi@vt.edu)&quot;</span><br><span class="line">set run_dir [pwd]</span><br><span class="line">echo &quot;Location of .synopsys_dc.setup: $run_dir&quot;</span><br><span class="line"></span><br><span class="line"># Configuration Settings</span><br><span class="line"># search_path is used to search for libraries and other files</span><br><span class="line">set search_path &#123;. ./libs ../tutorials/libs /software/Synopsys/Y-2006.06-SP2/libraries/syn&#125;</span><br><span class="line"></span><br><span class="line"># target_library is the library or list of libraries we want the design</span><br><span class="line"># compiler to target as a result of synthesis. Cell library in db format </span><br><span class="line">set target_library [list tcbn65gplusbc0d88.db tpdn65gpgv2od3_sdbc.db]</span><br><span class="line"></span><br><span class="line"># Libraries the design should be linked. Typically the combined list of</span><br><span class="line"># synthetic_library and target_library. synthetic_library are not used</span><br><span class="line"># here, so it&#x27;s default target_library</span><br><span class="line">set link_library [list tcbn65gplusbc0d88.db tpdn65gpgv2od3_sdbc.db]</span><br><span class="line"></span><br><span class="line"># symbol_library is the list of library that has grephical symbol information</span><br><span class="line">set symbol_library &#123;&quot;vtvt_tsmc250.sdb&quot; &quot;basic.sdb&quot; &quot;NCSU_Analog_Parts.sdb&quot; &quot;US.8ths.sdb&quot;&#125;</span><br><span class="line"></span><br><span class="line"># Location for intermediate files</span><br><span class="line">#WORK &gt; DEFAULT</span><br><span class="line">#DEFAULT : ./work</span><br><span class="line">#vtvt_tsmc250 : ./vtvt_tsmc250</span><br><span class="line"></span><br><span class="line"># Turn tri state nets from tri to wire</span><br><span class="line">set verilogout_no_tri &quot;true&quot;</span><br><span class="line"></span><br><span class="line"># EDIF is a vendor neutral format. Retain the setting for it.</span><br><span class="line"># Read Symbol</span><br><span class="line">set edifin_lib_route_grid 1024</span><br><span class="line">set vhdlout_use_packages &#123;IEEE.std_logic_1164 IEEE.std_logic_arith IEEE.std_logic_textio vtvt_tsmc180.components&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># EDIF read symbol library variables</span><br><span class="line"># EDIF variables for Importing Special Connectors for Composer</span><br><span class="line">      set edifin_lib_in_port_symbol &quot;ipin&quot;</span><br><span class="line">      set edifin_lib_out_port_symbol &quot;opin&quot;</span><br><span class="line">      set edifin_lib_inout_port_symbol &quot;iopin&quot;</span><br><span class="line"></span><br><span class="line">      set edifin_lib_in_osc_symbol &quot;iosc&quot;</span><br><span class="line">      set edifin_lib_out_osc_symbol &quot;oosc&quot;</span><br><span class="line">      set edifin_lib_inout_osc_symbol &quot;oosc&quot;</span><br><span class="line"></span><br><span class="line">      set edifin_lib_logic_1_symbol &quot;vdd&quot;</span><br><span class="line">      set edifin_lib_logic_0_symbol &quot;vss&quot;</span><br><span class="line"></span><br><span class="line"># EDIF variables for Importing a Bus Ripper from Composer</span><br><span class="line">      set edifin_lib_ripper_bits_property &quot;schPatchExpr&quot;</span><br><span class="line">      set edifin_lib_ripper_bus_end &quot;bus_end&quot;</span><br><span class="line">      set edifin_lib_ripper_cell_end &quot;ripper&quot;</span><br><span class="line">      set edifin_lib_ripper_view_name &quot;symbol&quot;</span><br><span class="line">      set edifin_lib_route_grid 1024</span><br><span class="line"></span><br><span class="line"># EDIF variables for Importing Sheet Templates from Composer</span><br><span class="line">      set edifin_lib_templates &#123;&#123;A,landscape,Asize&#125;,&#123;A,portrait,Asize.book&#125;, \</span><br><span class="line">      &#123;B,landscape,Bsize&#125;,&#123;C,landscape,Csize&#125;,&#123;D,landscape,Dsize&#125;, \</span><br><span class="line">      &#123;E,landscape,Esize&#125;,&#123;F,landscape,Fsize&#125;&#125;</span><br><span class="line"></span><br><span class="line">      # Bus Naming variables</span><br><span class="line">      set bus_naming_style &#123;%s[%d]&#125;</span><br><span class="line">      set bus_dimension_separator_style &#123;][&#125;</span><br><span class="line">      set bus_range_separator_style &quot;:&quot; </span><br><span class="line">      set bus_extraction_style &#123;%s[%d:%d]&#125;</span><br><span class="line">      set bus_minus_style &quot;-%d&quot;</span><br><span class="line">      set edifout_no_array &quot;false&quot;</span><br><span class="line"></span><br><span class="line">      # Read design variagles</span><br><span class="line">      set edifin_autoconnect_offPageConnectors &quot;true&quot;</span><br><span class="line">      set edifin_delete_empty_cells &quot;true&quot;</span><br><span class="line">      set edifin_delete_ripper_cells &quot;true&quot;</span><br><span class="line"></span><br><span class="line">      # Power and Ground variables</span><br><span class="line">      set edifin_ground_net_name &quot;vss!&quot;</span><br><span class="line">      set edifin_ground_net_property_name &quot;&quot;</span><br><span class="line">      set edifin_ground_net_property_value   &quot;&quot;</span><br><span class="line"></span><br><span class="line">      set edifout_ground_name   &quot;vss!&quot;</span><br><span class="line">      set edifout_ground_net_name   &quot;vss!&quot;</span><br><span class="line">      set edifout_ground_net_property_name   &quot;&quot;</span><br><span class="line">      set edifout_ground_net_property_value   &quot;&quot;</span><br><span class="line">      set edifout_ground_pin_name   &quot;vss!&quot;</span><br><span class="line"></span><br><span class="line">      set edifin_power_net_name   &quot;vdd!&quot;</span><br><span class="line">      set edifin_power_net_property_name   &quot;&quot;</span><br><span class="line">      set edifin_power_net_property_value   &quot;&quot;</span><br><span class="line"></span><br><span class="line">      set edifout_power_name   &quot;vdd&quot;</span><br><span class="line">      set edifout_power_net_name   &quot;vdd!&quot;</span><br><span class="line">      set edifout_power_net_property_name   &quot;&quot;</span><br><span class="line">      set edifout_power_net_property_value   &quot;&quot;</span><br><span class="line">      set edifout_power_pin_name   &quot;vdd!&quot;</span><br><span class="line">      set edifout_power_and_ground_representation   &quot;net&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      # Net to Port Connection variables</span><br><span class="line">      set edifin_autoconnect_ports   &quot;true&quot;</span><br><span class="line">      set compile_fix_multiple_port_nets   &quot;true&quot;</span><br><span class="line">      set gen_match_ripper_wire_widths   &quot;true&quot;</span><br><span class="line">      set edifout_name_rippers_same_as_wires   &quot;false&quot;</span><br><span class="line">      set link_force_case   &quot;case_insensitive&quot;</span><br><span class="line">      set single_group_per_sheet   &quot;true&quot;</span><br><span class="line">      set use_port_name_for_oscs   &quot;false&quot;</span><br><span class="line">      set write_name_nets_same_as_ports   &quot;true&quot;</span><br><span class="line"></span><br><span class="line">      # Output variables</span><br><span class="line">      set edifout_netlist_only   &quot;false&quot;</span><br><span class="line">      set edifout_external   &quot;true&quot;</span><br><span class="line">      set edifout_translate_origin   &quot;center&quot;</span><br><span class="line">      set edifout_display_instance_names   &quot;false&quot;</span><br><span class="line">      set edifout_display_net_name   &quot;false&quot;</span><br><span class="line">      set edifout_target_system   &quot;cadence&quot;</span><br><span class="line">      set edifout_instantiate_ports   &quot;true&quot;</span><br><span class="line">      set edifout_pin_name_property_name   &quot;pinName&quot;</span><br><span class="line">      set edifout_designs_library_name   &quot;SYNOPSYS&quot;</span><br></pre></td></tr></table></figure>
 <p>​    </p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/Formality/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/test1.png">
-      <meta itemprop="name" content="Shawn">
-      <meta itemprop="description" content="Test Description">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shawn's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/29/Formality/" class="post-title-link" itemprop="url">Formality</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-29 21:35:32 / 修改时间：21:38:14" itemprop="dateCreated datePublished" datetime="2022-06-29T21:35:32+08:00">2022-06-29</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Formality</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/29/Formality/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/28/Go/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/test1.png">
-      <meta itemprop="name" content="Shawn">
-      <meta itemprop="description" content="Test Description">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shawn's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/28/Go/" class="post-title-link" itemprop="url">Go</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-28 21:11:52 / 修改时间：21:43:09" itemprop="dateCreated datePublished" datetime="2022-06-28T21:11:52+08:00">2022-06-28</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文简要介绍了学习Golang的流程，并对Golang的主要基础知识进行了梳理。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/28/Go/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/29/Formality/" rel="prev" title="Formality">
+      <i class="fa fa-chevron-left"></i> Formality
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/test1.png">
-      <meta itemprop="name" content="Shawn">
-      <meta itemprop="description" content="Test Description">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shawn's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/" class="post-title-link" itemprop="url">FPGA Routing Architecture Between Tiles</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-09 20:59:14" itemprop="dateCreated datePublished" datetime="2022-05-09T20:59:14+08:00">2022-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-28 21:17:32" itemprop="dateModified" datetime="2022-06-28T21:17:32+08:00">2022-06-28</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文简要分析了$FPGA$架构间的路由结构，介绍了几种经典的$SwitchBlock$结构和$ConnectionBlock$结构，在此基础上提供了一种可重复布局的$fabric$路由架构。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/09/FPGA%20Routing%20Architecture%20Between%20Tiles/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/Xilinx%E7%9A%84RAM%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/test1.png">
-      <meta itemprop="name" content="Shawn">
-      <meta itemprop="description" content="Test Description">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shawn's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/09/Xilinx%E7%9A%84RAM%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Xilinx的RAM使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-09 20:56:23" itemprop="dateCreated datePublished" datetime="2022-05-09T20:56:23+08:00">2022-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-28 21:28:28" itemprop="dateModified" datetime="2022-06-28T21:28:28+08:00">2022-06-28</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>497</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文简要介绍了$Vivado$中常用的各种$RAM$类型</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/09/Xilinx%E7%9A%84RAM%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/Vivado%E7%9A%84Debug%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/test1.png">
-      <meta itemprop="name" content="Shawn">
-      <meta itemprop="description" content="Test Description">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shawn's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/09/Vivado%E7%9A%84Debug%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Vivado的Debug实现方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-09 20:56:09" itemprop="dateCreated datePublished" datetime="2022-05-09T20:56:09+08:00">2022-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-28 21:28:12" itemprop="dateModified" datetime="2022-06-28T21:28:12+08:00">2022-06-28</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>420</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文简要介绍了$Xilinx Vivado$软件中通用的电路$Debug$方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/09/Vivado%E7%9A%84Debug%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -816,6 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Compiler-Utils"><span class="nav-number">1.</span> <span class="nav-text">Design Compiler Utils</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FANOUT"><span class="nav-number">2.0.1.</span> <span class="nav-text">FANOUT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDC"><span class="nav-number">2.0.2.</span> <span class="nav-text">DDC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E5%BB%B6%E6%97%B6"><span class="nav-number">2.0.3.</span> <span class="nav-text">路径延时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Milkyway-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.0.4.</span> <span class="nav-text">Milkyway 数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E8%AF%AD%E5%8F%A5%E7%9A%84%E7%BB%BC%E5%90%88%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">部分语句的综合结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IF%E7%9A%84%E7%BB%BC%E5%90%88"><span class="nav-number">3.1.</span> <span class="nav-text">IF的综合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CASE%E7%9A%84%E7%BB%BC%E5%90%88"><span class="nav-number">3.2.</span> <span class="nav-text">CASE的综合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CASE%E6%9D%A1%E4%BB%B6%E5%86%B2%E7%AA%81"><span class="nav-number">3.2.1.</span> <span class="nav-text">CASE条件冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CASEX%E7%9A%84%E7%BB%BC%E5%90%88"><span class="nav-number">3.2.2.</span> <span class="nav-text">CASEX的综合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BD%9C%E5%9C%A8LATCH%E7%9A%84CASE"><span class="nav-number">3.2.3.</span> <span class="nav-text">潜在LATCH的CASE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOOP%E7%9A%84%E7%BB%BC%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">LOOP的综合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Instruction-Utils"><span class="nav-number">4.</span> <span class="nav-text">Instruction Utils</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lc-shell"><span class="nav-number">4.0.1.</span> <span class="nav-text">lc_shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-max-area"><span class="nav-number">4.0.2.</span> <span class="nav-text">set_max_area</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IF"><span class="nav-number">4.0.3.</span> <span class="nav-text">IF</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%8A%A5%E9%94%99"><span class="nav-number">5.</span> <span class="nav-text">常见报错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WARNING"><span class="nav-number">5.0.1.</span> <span class="nav-text">WARNING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">5.0.2.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timing-Loop-Process"><span class="nav-number">6.</span> <span class="nav-text">Timing Loop Process</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Practice-Website"><span class="nav-number">7.</span> <span class="nav-text">Practice Website</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q"><span class="nav-number">8.</span> <span class="nav-text">Q</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%99%A8%E4%BB%B6%E5%BA%93-v-%E4%B8%ADSpecify%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">9.</span> <span class="nav-text">器件库 .v 中Specify的含义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Compiler-SetUp-TCL-Exrample"><span class="nav-number">10.</span> <span class="nav-text">Design Compiler SetUp TCL Exrample</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -947,61 +541,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
